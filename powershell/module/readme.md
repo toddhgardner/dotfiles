@@ -1,0 +1,1 @@
+Git won't allow me to put submodules so far down the directory tree without something checked in.
