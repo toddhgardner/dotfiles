@@ -1,13 +1,6 @@
 [submodule "powershell/module/posh-git"]
 	path = powershell/module/posh-git
-	url = https://github.com/dahlbyk/posh-git.git
+	url = git@github.com:dahlbyk/posh-git.git
 [submodule "powershell/module/posh-hg"]
 	path = powershell/module/posh-hg
-	url = https://github.com/JeremySkinner/posh-hg.git
-[submodule "powershell/module/posh-svn"]
-	path = powershell/module/posh-svn
-	url = git@github.com:PProvost/posh-svn.git
-	ignore = dirty
-[submodule "powershell/module/PowerTab"]
-	path = powershell/module/PowerTab
-	url = git@github.com:PProvost/PowerTab.git
+	url = git@github.com:JeremySkinner/posh-hg.git
