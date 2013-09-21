@@ -19,10 +19,10 @@
     CD_GetChildItem = $false          # Display the contents of new provider location after using 
                                       # cd (Set-LocationEx).  Mutually exclusive with CD_EchoNewLocation.
                                       
-    CD_EchoNewLocation = $true        # Display new provider location after using cd (Set-LocationEx).
+    CD_EchoNewLocation = $false        # Display new provider location after using cd (Set-LocationEx).
                                       # Mutually exclusive with CD_GetChildItem.
     
-    TextEditor = 'Notepad.exe'        # Default text editor used by the Edit-File function
+    TextEditor = 'gvim.exe'        # Default text editor used by the Edit-File function
     
     PromptTheme = 'Modern'            # Prompt string and window title updates.  To enable, first
                                       # set the ModulesToImport setting for Prompt below to $true.
@@ -39,7 +39,7 @@
     SmtpHost = $null                  # Specify a default SMTP server.
     SmtpPort = $null                  # Specify a default port number if not specified port 25 is used.
                                       
-    FileSizeInUnits = $false          # Pscx prepends format data for display of file information.
+    FileSizeInUnits = $true          # Pscx prepends format data for display of file information.
                                       # If this value is set to $true, file sizes are displayed in
                                       # using KB,MG,GB and TB units.
                                       
@@ -53,6 +53,6 @@
 		TranscribeSession = $false    # Disabled by default for security and privacy reasons.
 		Utility           = $true
 		Vhd               = $true
-		Wmi               = $true
+		Wmi               = $false
 	}    
 }

@@ -1,20 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuration>
-
-  <SelectionSets>
-    <SelectionSet>
-      <Name>FileSystemTypes</Name>
-      <Types>
-        <TypeName>System.IO.DirectoryInfo</TypeName>
-        <TypeName>System.IO.FileInfo</TypeName>
-        <TypeName>Deserialized.System.IO.DirectoryInfo</TypeName>
-        <TypeName>Deserialized.System.IO.FileInfo</TypeName>
-      </Types>
-    </SelectionSet>
-  </SelectionSets>
-
   <Controls>
     <Control>
-      <Name>FileSystemTypes-GroupingFormat</Name>
+      <Name>ParameterGroupingFormat</Name>
       <CustomControl>
         <CustomEntries>
           <CustomEntry>
@@ -22,9 +10,14 @@
               <Frame>
                 <LeftIndent>4</LeftIndent>
                 <CustomItem>
-                  <Text AssemblyName="System.Management.Automation" BaseName="FileSystemProviderStrings" ResourceId="DirectoryDisplayGrouping"/>
+                  <Text>Command: </Text>
                   <ExpressionBinding>
-                    <ScriptBlock>$ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($_.PSParentPath)</ScriptBlock>
+                    <ScriptBlock>"{0}/{1}" -f $(if($_.command.ModuleName){$_.command.ModuleName}else{$_.Command.CommandType.ToString()+":"}),$_.command.Name</ScriptBlock>
+                  </ExpressionBinding>
+                  <NewLine/>
+                  <Text>Set:     </Text>
+                  <ExpressionBinding>
+                    <ScriptBlock>if($_.ParameterSet -eq "__AllParameterSets"){"Default"}else{$_.ParameterSet}</ScriptBlock>
                   </ExpressionBinding>
                   <NewLine/>
                 </CustomItem>
@@ -34,279 +27,104 @@
         </CustomEntries>
       </CustomControl>
     </Control>
-    
-    <Control>
-      <Name>HashInfo-GroupingFormat</Name>
-      <CustomControl>
-        <CustomEntries>
-          <CustomEntry>
-            <CustomItem>
-              <Frame>
-                <LeftIndent>4</LeftIndent>
-                <CustomItem>
-                  <Text>Algorithm: </Text>
-                  <ExpressionBinding>
-                    <ScriptBlock>$_.Algorithm</ScriptBlock>
-                  </ExpressionBinding>
-                </CustomItem>
-              </Frame>
-            </CustomItem>
-          </CustomEntry>
-        </CustomEntries>
-      </CustomControl>
-    </Control>
   </Controls>
-
-  <ViewDefinitions>	
+  <ViewDefinitions>
     <View>
-      <Name>FileSystemTypes-View</Name>
+      <Name>ParameterMetadataEx</Name>
       <ViewSelectedBy>
-        <SelectionSetName>FileSystemTypes</SelectionSetName>
+        <TypeName>System.Management.Automation.ParameterMetadataEx</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <PropertyName>PSParentPath</PropertyName>
-        <CustomControlName>FileSystemTypes-GroupingFormat</CustomControlName>
+        <PropertyName>ParameterSet</PropertyName>
+        <CustomControlName>ParameterGroupingFormat</CustomControlName>
       </GroupBy>
       <TableControl>
         <TableHeaders>
           <TableColumnHeader>
-            <Label>Mode</Label>
-            <Width>5</Width>
-            <Alignment>left</Alignment>
-          </TableColumnHeader>
-          <TableColumnHeader>
-            <Label>LastWriteTime</Label>
-            <Width>22</Width>
-            <Alignment>right</Alignment>
-          </TableColumnHeader>
-          <TableColumnHeader>
-            <Label>Length</Label>
-            <Width>12</Width>
-            <Alignment>right</Alignment>
-          </TableColumnHeader>
-          <TableColumnHeader>
-        	  <Label>Name</Label>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <Wrap/>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>Mode</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <ScriptBlock>
-                  '{0,10} {1,8}' -f $_.LastWriteTime.ToString('d'), $_.LastWriteTime.ToString('t')
-                </ScriptBlock>
-              </TableColumnItem>
-              <TableColumnItem>
-                <ScriptBlock>
-                  $reparse = $_.ReparsePoint
-
-                  if ($reparse) {
-                      switch($reparse.ReparsePointTag) {
-                          'MountPoint'   { return '&lt;JUNCTION&gt;' }
-                          'SymbolicLink' {
-                              if((get-item $reparse.Target).PSIsContainer) { 
-								                  return '&lt;SYMLINKD&gt;' 
-                              }  
-    							            
-                              return '&lt;SYMLINK&gt;'
-                          }
-                          
-                          'HierarchicalStorage'   { return '&lt;HSM&gt;' }
-                          'SingleInstanceStore'   { return '&lt;SIS&gt;' }
-                          'DistributedFileSystem' { return '&lt;DFS&gt;' }
-                          'FilterManager'         { return '&lt;FltMgr&gt;'}
-                      }              
-                  }
-
-				          if ($_.PSIsContainer) { 
-                      return '&lt;DIR&gt;'
-                  }
-
-                  if ($Pscx:Preferences['FileSizeInUnits']) {
-                      return $_.Length | format-byte
-                  }
-
-                  return $_.Length
-                </ScriptBlock>
-              </TableColumnItem>
-              <TableColumnItem>
-                <ScriptBlock>
-    			  		  $reparsePoint = $_.ReparsePoint
-    			  		  if ($reparsePoint -ne $null -and $reparsePoint.Target) {
-      						  '{0} [{1}]' -f $_.Name, $reparsePoint.Target
-					        }
-                  else {
-                    $_.Name
-                  }
-			          </ScriptBlock>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
-    
-    <View>
-      <Name>drives</Name>
-      <ViewSelectedBy>
-        <TypeName>System.IO.DriveInfo</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableHeaders>
-
-          <TableColumnHeader>
-            <Label>VolumeLabel</Label>
-            <Width>18</Width>
-          </TableColumnHeader>
-
-          <TableColumnHeader>
             <Label>Name</Label>
-            <Width>4</Width>
+            <Width>22</Width>
           </TableColumnHeader>
-
           <TableColumnHeader>
-            <Label>UsedSpace</Label>
-            <Width>18</Width>
-            <Alignment>right</Alignment>
+            <Label>Aliases</Label>
+            <Width>12</Width>
           </TableColumnHeader>
-
           <TableColumnHeader>
-            <Label>FreeSpace</Label>
-            <Width>18</Width>
-            <Alignment>right</Alignment>
+            <Label>Position</Label>
+            <Width>8</Width>
           </TableColumnHeader>
-
           <TableColumnHeader>
-            <Label>TotalSize</Label>
-            <Width>11</Width>
-            <Alignment>right</Alignment>
+            <Label>Mandatory</Label>
+            <Width>9</Width>
           </TableColumnHeader>
-
           <TableColumnHeader>
-            <Label>%Free</Label>
-            <Width>5</Width>
-            <Alignment>right</Alignment>
+            <Label>Pipeline</Label>
+            <Width>8</Width>
           </TableColumnHeader>
-
+          <TableColumnHeader>
+            <Label>ByName</Label>
+            <Width>6</Width>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Provider</Label>
+            <Width>15</Width>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Type</Label>
+          </TableColumnHeader>
         </TableHeaders>
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
-              <TableColumnItem>
-                <ScriptBlock>
-                  if ($_.VolumeLabel.Length -gt 0) {
-                    return $_.VolumeLabel
-                  }
-                  'Local Disk'
-                </ScriptBlock>
-              </TableColumnItem>
-
               <TableColumnItem>
                 <PropertyName>Name</PropertyName>
               </TableColumnItem>
-              
               <TableColumnItem>
-                <ScriptBlock>
-                  if ($Pscx:Preferences['FileSizeInUnits']) {
-                      return $_.UsedSpace | format-byte
-                  }
-                  '{0:N0}' -f $_.UsedSpace
-                </ScriptBlock>
+                <PropertyName>Aliases</PropertyName>
               </TableColumnItem>
-
               <TableColumnItem>
-                <ScriptBlock>
-                  if ($Pscx:Preferences['FileSizeInUnits']) {
-                      return $_.FreeSpace | format-byte
-                  }
-                  '{0:N0}' -f ($_.FreeSpace)
-                </ScriptBlock>
+                <!--PropertyName>Position</PropertyName-->
+                <ScriptBlock>if($_.Position -lt 0){"Named"}else{$_.Position}</ScriptBlock>
               </TableColumnItem>
-
               <TableColumnItem>
-                <ScriptBlock>
-                  $_.TotalSize | format-byte
-                </ScriptBlock>
+                <PropertyName>Mandatory</PropertyName>
               </TableColumnItem>
-
               <TableColumnItem>
-                <ScriptBlock>'{0:0} %' -f (100 * ([float]$_.FreeSpace / [float]$_.TotalSize))</ScriptBlock>
+                <PropertyName>ValueFromPipeline</PropertyName>
               </TableColumnItem>
-
+              <TableColumnItem>
+                <PropertyName>ValueFromPipelineByPropertyName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <!--PropertyName>Provider</PropertyName-->
+                <ScriptBlock>if($_.Provider){$_.Provider}else{"All"}</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Type</PropertyName>
+              </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
         </TableRowEntries>
       </TableControl>
     </View>
-
     <View>
-      <Name>LinkReparsePointInfo</Name>
+      <Name>ExecutionTimeInfo</Name>
       <ViewSelectedBy>
-        <TypeName>Pscx.IO.Ntfs.LinkReparsePointInfo</TypeName>
-      </ViewSelectedBy>
-
-      <ListControl>
-        <ListEntries>
-          <ListEntry>
-            <ListItems>
-              <ListItem>
-                <PropertyName>ReparsePointTag</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>Path</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>Target</PropertyName>
-              </ListItem>
-            </ListItems>
-          </ListEntry>
-        </ListEntries>
-      </ListControl>
-    </View>
-
-    <View>
-      <Name>Pscx.Commands.IO.HashInfo</Name>
-      <ViewSelectedBy>
-        <TypeName>Pscx.Commands.IO.HashInfo</TypeName>
-      </ViewSelectedBy>
-      <GroupBy>
-        <PropertyName>Algorithm</PropertyName>
-        <CustomControlName>HashInfo-GroupingFormat</CustomControlName>
-      </GroupBy>
-      <ListControl>
-        <ListEntries>
-          <ListEntry>
-            <ListItems>
-              <ListItem>
-                <PropertyName>Path</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>HashString</PropertyName>
-              </ListItem>
-            </ListItems>
-          </ListEntry>
-        </ListEntries>
-      </ListControl>
-    </View>
-
-    <View>
-      <Name>Pscx.Commands.IO.ShortPathInfo</Name>
-      <ViewSelectedBy>
-        <TypeName>Pscx.Commands.IO.ShortPathInfo</TypeName>
+        <TypeName>Pscx.Commands.Modules.Utility.ExecutionTimeInfo</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
           <TableColumnHeader>
-            <Label>ShortPath</Label>
-            <Width>12</Width>
+            <Label>Id</Label>
+            <Width>4</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ExecutionTime</Label>
+            <Width>16</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
-            <Label>Path</Label>
+            <Label>HistoryInfo</Label>
             <Alignment>left</Alignment>
           </TableColumnHeader>
         </TableHeaders>
@@ -314,10 +132,13 @@
           <TableRowEntry>
             <TableColumnItems>
               <TableColumnItem>
-                <ScriptBlock>[System.IO.Path]::GetFileName($_.ShortPath)</ScriptBlock>
+                <PropertyName>Id</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>Path</PropertyName>
+                <PropertyName>ExecutionTime</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>HistoryInfo</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
@@ -326,12 +147,11 @@
     </View>
   </ViewDefinitions>
 </Configuration>
-
 <!-- SIG # Begin signature block -->
 <!-- MIIfVQYJKoZIhvcNAQcCoIIfRjCCH0ICAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB -->
 <!-- gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR -->
-<!-- AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUQY+nv+V1336lLQ0hcZykZNLS -->
-<!-- jh2gghqHMIIGbzCCBVegAwIBAgIQA4uW8HDZ4h5VpUJnkuHIOjANBgkqhkiG9w0B -->
+<!-- AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUqD5ZthmDTfqQTkjvZPR8iCQz -->
+<!-- eD+gghqHMIIGbzCCBVegAwIBAgIQA4uW8HDZ4h5VpUJnkuHIOjANBgkqhkiG9w0B -->
 <!-- AQUFADBiMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYD -->
 <!-- VQQLExB3d3cuZGlnaWNlcnQuY29tMSEwHwYDVQQDExhEaWdpQ2VydCBBc3N1cmVk -->
 <!-- IElEIENBLTEwHhcNMTIwNDA0MDAwMDAwWhcNMTMwNDE4MDAwMDAwWjBHMQswCQYD -->
@@ -477,23 +297,23 @@
 <!-- ZGlnaWNlcnQuY29tMS4wLAYDVQQDEyVEaWdpQ2VydCBBc3N1cmVkIElEIENvZGUg -->
 <!-- U2lnbmluZyBDQS0xAhAKFT0IddbjKM4R9plQj7wRMAkGBSsOAwIaBQCgeDAYBgor -->
 <!-- BgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqGSIb3DQEJAzEMBgorBgEEAYI3AgEE -->
-<!-- MBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEWBBTq -->
-<!-- l6+lrApOW6bz8Va1QJ7pgX369DANBgkqhkiG9w0BAQEFAASCAQCWMj84mtw+LDvG -->
-<!-- uhUXj3IWy+nkPA2xaYnJMnMqZiwl5yb+BWCLiNAAdknYmBRKBr4iNpqIYbNsGzvy -->
-<!-- cZv5g/QfroVeCVtmGGg1kCjtREQKaM1Pqz36ZoS1BszVjNhsNfK42xP1aZWDM7zz -->
-<!-- F3rVMQxN0/rSGYNw6FKb8LwjRXxLKlFx+KKPhwEDcDolVtr08PuNMg91xqq4MiwY -->
-<!-- bLwvaqQt5KY7GpzyuJgewX1W6vf/lb4QudTzKCs5RPSN4fPv4VxLAiELT4bfNl/i -->
-<!-- N3zJqvGATiVaX4QZv9UlwYAMjcjzK3Ap9PU0Z6cuGg0fakfSXta8izrhlBoJZKTi -->
-<!-- M9ZkXabPoYICDzCCAgsGCSqGSIb3DQEJBjGCAfwwggH4AgEBMHYwYjELMAkGA1UE -->
+<!-- MBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEWBBRx -->
+<!-- KYT6vq4D6/0j0AOuo0zmKyjAjjANBgkqhkiG9w0BAQEFAASCAQBRPnoCUG+2CVUP -->
+<!-- hhKhcFlN4X/3mHtaqtaTBtec24aRMgjnJQ50siiEcnARNVmvkUHV+X9eyHdqrwUT -->
+<!-- ZyvS3BFfcg8Zc+5A1je/Eh2egZD79xcwUpnleCXL7WuAn7ndAtJf6EkxTs6Lltij -->
+<!-- JEKzWSak6XvaghtTbXsTupyl2tJMjRe5XEpEOJwH7fPze32tmAlEy1j/iBFKgJq+ -->
+<!-- jWd9IT3pW07ID3lCIUyxbywzVTpj9rE492K5VjETGrj8E9laTgkEBg0nyqbye1cr -->
+<!-- ZBQfg2n4hf4y5A1w30AKjKXcxb3fsdxaZjPVmNCjtotoIMR1ZBahlkuA0RdaTqT9 -->
+<!-- Z/AUzx+JoYICDzCCAgsGCSqGSIb3DQEJBjGCAfwwggH4AgEBMHYwYjELMAkGA1UE -->
 <!-- BhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcGA1UECxMQd3d3LmRpZ2lj -->
 <!-- ZXJ0LmNvbTEhMB8GA1UEAxMYRGlnaUNlcnQgQXNzdXJlZCBJRCBDQS0xAhADi5bw -->
 <!-- cNniHlWlQmeS4cg6MAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcN -->
-<!-- AQcBMBwGCSqGSIb3DQEJBTEPFw0xMjEwMjEwMTUyNTJaMCMGCSqGSIb3DQEJBDEW -->
-<!-- BBQD93hhXhxH+fRNhNkdMqB0xxLaaDANBgkqhkiG9w0BAQEFAASCAQB4iJP6UjKS -->
-<!-- Ivs8XBcsahvIHemfTwAzt0AMFPaMRYoIsQHhsTUR6sZiDJqpYxWcnhba572/SlH/ -->
-<!-- IIko6ckpbrVLUTNzKbZ/aoGwQXvpblILcT7Qs5enbDrHQQRzhk5t1hTLo/sHHn2g -->
-<!-- wR9rsW7/gsbInmFdwfHIsZ6CpVRwkOhZALzXLzso0dgDxw9Y761LfzVf/6Kw+aFF -->
-<!-- JKYfnp/+oEhk1AFntWpLZxXJ3fH2fIDIXRnFFTZqTyM7RI8kBbvNOaxPAMacsE+1 -->
-<!-- jFNzoTT2J9XxR8rv5SEBrPpu/AtAJiQs34sxY4bMyCaYXD/Pb/U+x8ctW3mPUYh9 -->
-<!-- 8mvgGk7q+FpN -->
+<!-- AQcBMBwGCSqGSIb3DQEJBTEPFw0xMjEwMjEwMTUyNTRaMCMGCSqGSIb3DQEJBDEW -->
+<!-- BBRnsV79nHqHJVw8ZWN3dshyL0qpKDANBgkqhkiG9w0BAQEFAASCAQASPm2F+Mz9 -->
+<!-- DSg7IeyYs/Nui3L+CYSn1K2cbucMGRyTf8cho7RMaFJznzTizKa9e8vBEsYSyy3l -->
+<!-- 5YdA8SyV2s/IRZ0fpUzYSjosd/XHrtdveiyGJtt6LYHM+3GMh8T+KhY/724uRuop -->
+<!-- v9tnMQPwXb/cztMWry5Bcsol5cIS1ybcDfsnZjXkXiZXeQOYQlzUlh95zvWdrxk9 -->
+<!-- E58ZSXqnKAc8yojfcQx46LIMR9VHTo6FF1RP/0NWHdw5LorZRaa82xG1SyxR4gC8 -->
+<!-- 12Vea3AgVjpYyIAGY74iK5JLi/FRCIKVMFCqZjrQpiy3eCb9xkULocjSnyhm/Jae -->
+<!-- caV/00M4rIh0 -->
 <!-- SIG # End signature block -->
