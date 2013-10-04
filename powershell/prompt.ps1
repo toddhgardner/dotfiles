@@ -22,27 +22,32 @@ function get-isAdminUser() {
 
 $global:promptTheme = @{
   prefixColor = [ConsoleColor]::Cyan
-  pathColor = [ConsoleColor]::Cyan
-  pathBracesColor = [ConsoleColor]::DarkCyan
+  pathColor = [ConsoleColor]::DarkYellow
   hostNameColor = ?: { get-isAdminUser } { [ConsoleColor]::Red } { [ConsoleColor]::Green }
 }
 
 
 function global:prompt {
   $realLASTEXITCODE = $LASTEXITCODE
-  $prefix = [char]0x221e + " "
+  $prefix = [char]0x1403
   $hostName = [net.dns]::GetHostName().ToLower()
+  $userName = [Environment]::UserName
   $shortPath = get-vimShortPath(get-location)
 
   # Reset color, which can be messed up by Enable-GitColors
   $Host.UI.RawUI.ForegroundColor = $GitPromptSettings.DefaultForegroundColor
   
-  write-host $prefix -noNewLine -foregroundColor $promptTheme.prefixColor
+  write-host $userName -noNewLine -foregroundColor $promptTheme.hostNameColor
+  write-host '@'       -noNewLine -foregroundColor $promptTheme.hostNameColor
   write-host $hostName -noNewLine -foregroundColor $promptTheme.hostNameColor
-  write-host ' {' -noNewLine -foregroundColor $promptTheme.pathBracesColor
+  
+  write-host ' '        -noNewLine -foregroundColor $promptTheme.pathColor
   write-host $shortPath -noNewLine -foregroundColor $promptTheme.pathColor
-  write-host '}' -noNewLine -foregroundColor $promptTheme.pathBracesColor
+  
   write-vcsStatus # from posh-git, posh-hg and posh-svn
+  
+  write-host '' 
+  write-host $prefix -noNewLine
   
   $global:LASTEXITCODE = $realLASTEXITCODE
   
