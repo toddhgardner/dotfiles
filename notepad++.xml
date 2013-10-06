@@ -95,11 +95,18 @@
         </GUIConfig>
     </GUIConfigs>
     <!-- The History of opened files list -->
-    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="0" transparencyMode="1" transparency="150" dotMatchesNewline="no" />
+    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" dlgAlwaysVisible="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="0" transparencyMode="1" transparency="150" dotMatchesNewline="no">
+        <Find name="Source" />
+        <Find name="font" />
+        <Find name="sourcecode" />
+    </FindHistory>
     <History nbMaxFile="15" inSubMenu="no" customLength="-1">
         <File filename="Z:\Install\Adobe Photoshop CS5 Extended Include Crack\APCS5 - Installation Notes.txt" />
-        <File filename="C:\Windows\System32\drivers\etc\hosts" />
         <File filename="C:\Users\todd\.ssh\id_rsa.pub" />
+        <File filename="C:\windows\system32\drivers\etc\hosts" />
+        <File filename="C:\Users\todd\AppData\Roaming\Notepad++\config.xml" />
+        <File filename="C:\Users\todd\AppData\Roaming\Notepad++\stylers.xml" />
+        <File filename="C:\Users\todd\dotfiles\setup\setup-environment.ps1" />
     </History>
     <ProjectPanels>
         <ProjectPanel id="0" workSpaceFile="" />
