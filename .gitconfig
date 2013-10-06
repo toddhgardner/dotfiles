@@ -1,0 +1,12 @@
+[user]
+	name = Todd H. Gardner
+	email = todd@wocketware.com
+[merge]
+	tool = winmerge
+[mergetool "winmerge"]
+	cmd = "\"C:/Program Files (x86)/WinMerge/WinMergeU.exe\" -e -ub $LOCAL $REMOTE $MERGED"
+[diff]
+	tool = winmerge
+	guitool = kdiff3
+[difftool "winmerge"]
+	cmd = "\"C:/Program Files (x86)/WinMerge/WinMergeU.exe\" -e -ub $LOCAL $REMOTE"
