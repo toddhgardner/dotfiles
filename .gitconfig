@@ -10,3 +10,20 @@
 	guitool = kdiff3
 [difftool "winmerge"]
 	cmd = "\"C:/Program Files (x86)/WinMerge/WinMergeU.exe\" -e -ub $LOCAL $REMOTE"
+
+[alias]
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  df = diff
+  dc = diff --cached
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  who = shortlog -s --
+  lc = log ORIG_HEAD.. --stat --no-merges
+  llog = log --date=local
+  changes = diff --name-status -r
+  diffstat = diff --stat -r
+  new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
+  whois = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -"
+  whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short

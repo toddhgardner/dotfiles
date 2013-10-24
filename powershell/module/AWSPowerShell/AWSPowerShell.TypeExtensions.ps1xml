@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Types>
+  <!-- 
+  ********************************************************************
+  * Amazon EC2 model type extensions
+  ********************************************************************
+  -->
+  <Type>
+    <Name>Amazon.EC2.Model.Region</Name>
+    <Members>
+      <AliasProperty>
+        <Name>Region</Name>
+        <ReferencedMemberName>RegionName</ReferencedMemberName>
+      </AliasProperty>            
+    </Members>
+  </Type>
+  <Type>
+	<Name>Amazon.EC2.Model.AvailabilityZone</Name>
+    <Members>
+      <AliasProperty>
+        <Name>Region</Name>
+        <ReferencedMemberName>RegionName</ReferencedMemberName>
+      </AliasProperty>            
+    </Members>
+  </Type>
+  <Type>
+	<Name>Amazon.EC2.Model.S3Storage</Name>
+    <Members>
+      <AliasProperty>
+        <Name>BucketName</Name>
+        <ReferencedMemberName>Bucket</ReferencedMemberName>
+      </AliasProperty>            
+      <AliasProperty>
+        <Name>KeyPrefix</Name>
+        <ReferencedMemberName>Prefix</ReferencedMemberName>
+      </AliasProperty>            
+    </Members>
+  </Type>
+
+  <!-- 
+  ********************************************************************
+  * AWS CloudFormation model type extensions
+  ********************************************************************
+  -->
+  <Type>
+    <Name>Amazon.CloudFormation.Model.Parameter</Name>
+    <Members>
+      <AliasProperty>
+        <Name>Key</Name>
+        <ReferencedMemberName>ParameterKey</ReferencedMemberName>
+      </AliasProperty>            
+      <AliasProperty>
+        <Name>Value</Name>
+        <ReferencedMemberName>ParameterValue</ReferencedMemberName>
+      </AliasProperty>            
+    </Members>
+  </Type>
+
+  <!-- 
+  ********************************************************************
+  * Auto Scaling model type extensions
+  ********************************************************************
+  -->
+  <Type>
+    <Name>Amazon.AutoScaling.Model.Filter</Name>
+    <Members>
+      <AliasProperty>
+        <Name>Key</Name>
+        <ReferencedMemberName>Name</ReferencedMemberName>
+      </AliasProperty>
+    </Members>
+  </Type>
+
+</Types>
