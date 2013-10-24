@@ -1,0 +1,17 @@
+{
+	"color_scheme": "Packages/Color Scheme - Default/Solarized (Dark).tmTheme",
+	"draw_white_space": "all",
+	"font_face": "Source Code Pro Medium",
+	"font_size": 14,
+	"hot_exit": false,
+	"ignored_packages":
+	[
+		"Vintage",
+		"LESS-build",
+		"SublimeLinter",
+		"LESS"
+	],
+	"remember_open_files": false,
+	"tab_size": 2,
+	"translate_tabs_to_spaces": true
+}

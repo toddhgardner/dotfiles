@@ -8,5 +8,5 @@ New-Symlink 	"..\..\.gitconfig"								            "..\.gitconfig"
 New-Symlink 	"..\..\AppData\Roaming\Notepad++\config.xml"             "..\notepad++.xml"
 
 New-Junction 	"..\..\Documents\WindowsPowerShell"				    "..\powershell"
-
 New-Junction 	"..\..\Documents\Visual Studio 2012\Settings" "..\vs2012"
+New-Junction 	"..\..\AppData\Roaming\Sublime Text 2"        "..\subl"
