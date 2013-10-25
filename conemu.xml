@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <key name="Software">
 	<key name="ConEmu">
-		<key name=".Vanilla" modified="2013-10-06 12:53:52">
+		<key name=".Vanilla" modified="2013-10-06 14:33:34" build="130913">
 			<value name="ColorTable00" type="dword" data="00362b20"/>
 			<value name="ColorTable01" type="dword" data="009e864e"/>
 			<value name="ColorTable02" type="dword" data="004c947d"/>
@@ -72,7 +72,7 @@
 			<value name="StartType" type="hex" data="02"/>
 			<value name="CmdLine" type="string" data=""/>
 			<value name="StartTasksFile" type="string" data=""/>
-			<value name="StartTasksName" type="string" data="{Powershell}"/>
+			<value name="StartTasksName" type="string" data="{psh}"/>
 			<value name="StartFarFolders" type="hex" data="00"/>
 			<value name="StartFarEditors" type="hex" data="00"/>
 			<value name="StoreTaskbarkTasks" type="hex" data="00"/>
@@ -122,13 +122,13 @@
 			<value name="UserScreenTransparent" type="hex" data="00"/>
 			<value name="ColorKeyTransparent" type="hex" data="00"/>
 			<value name="ColorKeyValue" type="dword" data="00010101"/>
-			<value name="UseCurrentSizePos" type="hex" data="01"/>
-			<value name="WindowMode" type="dword" data="00000520"/>
+			<value name="UseCurrentSizePos" type="hex" data="00"/>
+			<value name="WindowMode" type="dword" data="0000051f"/>
 			<value name="ConWnd Width" type="dword" data="0000007f"/>
 			<value name="ConWnd Height" type="dword" data="00000023"/>
 			<value name="Cascaded" type="hex" data="01"/>
-			<value name="ConWnd X" type="dword" data="00000000"/>
-			<value name="ConWnd Y" type="dword" data="00000000"/>
+			<value name="ConWnd X" type="dword" data="0000004e"/>
+			<value name="ConWnd Y" type="dword" data="00000101"/>
 			<value name="16bit Height" type="dword" data="00000000"/>
 			<value name="AutoSaveSizePos" type="hex" data="00"/>
 			<value name="IntegralSize" type="hex" data="00"/>
@@ -486,16 +486,23 @@
 			<value name="DndLKey" type="hex" data="00"/>
 			<value name="DndRKey" type="hex" data="a2"/>
 			<value name="WndDragKey" type="dword" data="00121101"/>
-				<key name="Tasks" modified="2013-10-06 12:53:52">
-				<value name="Count" type="dword" data="00000002"/>
-						<key name="Task1" modified="2013-10-06 12:53:52">
-					<value name="Name" type="string" data="{Powershell}"/>
+				<key name="Tasks" modified="2013-10-06 14:33:34" build="130913">
+				<value name="Count" type="dword" data="00000003"/>
+						<key name="Task1" modified="2013-10-06 14:33:34" build="130913">
+					<value name="Name" type="string" data="{psh}"/>
 					<value name="GuiArgs" type="string" data="/single /Dir %userprofile%"/>
-					<value name="Cmd1" type="string" data="*&quot;%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe&quot;  -cur_console:a:t:PS"/>
+					<value name="Cmd1" type="string" data="&quot;%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe&quot;  -cur_console:t:psh"/>
 					<value name="Active" type="dword" data="00000000"/>
 					<value name="Count" type="dword" data="00000001"/>
 				</key>
-						<key name="Task2" modified="2013-10-06 12:53:52">
+						<key name="Task2" modified="2013-10-06 14:33:34" build="130913">
+					<value name="Name" type="string" data="{psh - admin}"/>
+					<value name="GuiArgs" type="string" data="/single /Dir %userprofile%"/>
+					<value name="Cmd1" type="string" data="*&quot;%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe&quot;  -cur_console:a:t:psh"/>
+					<value name="Active" type="dword" data="00000000"/>
+					<value name="Count" type="dword" data="00000001"/>
+				</key>
+						<key name="Task3" modified="2013-10-06 14:33:34" build="130913">
 					<value name="Name" type="string" data="{Git Bash}"/>
 					<value name="GuiArgs" type="string" data="/single /Dir %userprofile% /icon &quot;%ProgramFiles(x86)%\Git\etc\git.ico&quot;"/>
 					<value name="Cmd1" type="string" data="%systemroot%\SysWOW64\cmd.exe /c &quot;&quot;%ProgramFiles(x86)%\Git\bin\sh.exe&quot; --login -i&quot; &quot;-cur_console:t:Bash&quot; "/>
@@ -503,12 +510,25 @@
 					<value name="Count" type="dword" data="00000001"/>
 				</key>
 			</key>
-				<key name="Apps" modified="2013-10-06 12:53:52">
+				<key name="Apps" modified="2013-10-06 14:33:34" build="130913">
 				<value name="Count" type="dword" data="00000000"/>
 			</key>
-				<key name="Colors" modified="2013-10-06 12:53:52">
+				<key name="Colors" modified="2013-10-06 14:33:34" build="130913">
 				<value name="Count" type="dword" data="00000000"/>
 			</key>
+			<value name="ConsoleExceptionHandler" type="hex" data="00"/>
+			<value name="SaveCmdHistory" type="hex" data="01"/>
+			<value name="CTS.IBeam" type="hex" data="01"/>
+			<value name="TabIcons" type="hex" data="01"/>
+			<value name="Multi.SplitSizeVU" type="dword" data="00105d26"/>
+			<value name="Multi.SplitSizeVD" type="dword" data="00105d28"/>
+			<value name="Multi.SplitSizeHL" type="dword" data="00105d25"/>
+			<value name="Multi.SplitSizeHR" type="dword" data="00105d27"/>
+			<value name="Multi.SplitFocusU" type="dword" data="00005d26"/>
+			<value name="Multi.SplitFocusD" type="dword" data="00005d28"/>
+			<value name="Multi.SplitFocusL" type="dword" data="00005d25"/>
+			<value name="Multi.SplitFocusR" type="dword" data="00005d27"/>
+			<value name="CloseGroupPrcKey" type="dword" data="00000000"/>
 		</key>
 	</key>
 </key>
