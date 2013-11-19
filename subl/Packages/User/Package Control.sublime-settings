@@ -2,12 +2,19 @@
 	"auto_upgrade_last_run": null,
 	"installed_packages":
 	[
+		"AngularJS",
+		"ColorPicker",
 		"JSHint",
 		"LESS",
-		"LESS-build",
+		"Mercurial",
+		"Open Folder",
 		"Package Control",
 		"PowerShell",
+		"SideBarEnhancements",
 		"Sublime-HTMLPrettify",
-		"SublimeLinter"
+		"SublimeLinter",
+		"Theme - Soda",
+		"Theme - Sodarized",
+		"VCS Gutter"
 	]
 }

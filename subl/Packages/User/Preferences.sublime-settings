@@ -1,17 +1,17 @@
 {
-	"color_scheme": "Packages/Color Scheme - Default/Solarized (Dark).tmTheme",
+	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
 	"draw_white_space": "all",
-	"font_face": "Source Code Pro Medium",
-	"font_size": 14,
+	"font_face": "Source Code Pro",
+	"font_size": 15,
 	"hot_exit": false,
 	"ignored_packages":
 	[
-		"Vintage",
-		"LESS-build",
-		"SublimeLinter",
-		"LESS"
+		"Vintage"
 	],
 	"remember_open_files": false,
+	"soda_folder_icons": true,
 	"tab_size": 2,
-	"translate_tabs_to_spaces": true
+	"theme": "Soda Dark.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true
 }

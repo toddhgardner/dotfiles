@@ -1,0 +1,8 @@
+{
+    "vcs_paths": {
+        "diff": "C:\\Program Files (x86)\\GnuWin32\\bin\\diff.exe",
+        "git": "git",
+        "hg": "hg",
+        "svn": "svn"
+    }
+}
