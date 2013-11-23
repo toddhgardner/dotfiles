@@ -1,3 +1,0 @@
-Bug Fixes
-
-Disables completions within PHP blocks, fixes #25
