@@ -6,3 +6,5 @@ set-alias   count   measure-object
 set-alias   whence  get-commandInfoEx
 set-alias   sudo    invoke-elevated
 set-alias   iis     "C:\Windows\System32\inetsrv\InetMgr.exe"
+
+function subl { &"${Env:ProgramFiles}\Sublime Text 3\sublime_text.exe" $args }
