@@ -1,6 +1,6 @@
 # Global Powershell Profile
 
-$powershell = (join-path $env:USERPROFILE dotfiles/powershell)
+$powershell = (join-path $env:USERPROFILE Documents/WindowsPowershell)
 
 # Environment Variables
 $global:PSDefaultModulePath = $env:PSModulePath
@@ -16,7 +16,7 @@ Add-PathVariable $scriptPath
 
 
 # Powershell Modules
-#Import-Module "Pscx" -Arg (join-path $powershell Pscx.UserPreferences.ps1)
+Import-Module "Pscx" -Arg (join-path $powershell Pscx.UserPreferences.ps1)
 Import-Module "posh-git"
 Import-Module "posh-hg"
 #Import-Module "posh-svn"
